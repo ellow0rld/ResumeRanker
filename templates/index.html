@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design.css') }}">
+    <title>Job Matcher</title>
+</head>
+<body>
+<h1> Resume Ranker </h1>
+    <form method="POST">
+        <label for="job_description">Job Description:</label><br>
+        <textarea id="job_description" name="job_description" rows="10" cols="100" required>{{ job_description }}</textarea><br>
+        <input type="submit" value="Submit">
+    </form>
+
+<br>
+<input type="text"
+               id="searchInput"
+               placeholder="Search...">
+ <span id="noMatch" style="display:none;">
+            No matching data is found !
+        </span>
+
+
+    <table id="dataTable"> <!-- Add id here -->
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Student Registration Number</th>
+                <th>Similarity Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set rank = 1 %}
+            {% for resume, score in ranks.items() %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ resume }}</td>
+                <td>{{ "%.2f" % score }}</td>
+            </tr>
+            {% set rank = rank + 1 %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+<script>
+    let input = document.getElementById('searchInput');
+    let mytable = document.getElementById('dataTable');
+    let rows = mytable.getElementsByTagName('tr');
+    let noMatchMessage = document.getElementById('noMatch');
+
+    input.addEventListener('input', function () {
+        let filter = input.value.toLowerCase();
+        let matchFound = false;
+        for (let i = 1; i < rows.length; i++) {
+            let r = rows[i];
+            let cells = r.getElementsByTagName('td');
+            let found = false;
+            for (let j = 0; j < cells.length; j++) {
+                let ce = cells[j];
+                if (ce.textContent.toLowerCase().indexOf(filter) > -1) {
+                    found = true;
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                r.style.display = '';
+            } else {
+                r.style.display = 'none';
+            }
+        }
+
+        if (!matchFound) {
+            noMatchMessage.style.display = 'block';
+        } else {
+            noMatchMessage.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
