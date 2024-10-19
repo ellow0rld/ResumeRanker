@@ -1,0 +1,58 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 25px 25px;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0ef61a;
+}
+
+#searchInput {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 20%;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td,th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #0ef61a;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #dbe0de;
+}
+
+#noMatch {
+    color: red;
+    margin-top: 2.5rem;
+    margin-left: 17rem;
+    font-size: 20px;
+}
