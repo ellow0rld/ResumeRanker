@@ -1,0 +1,89 @@
+<div class="container">
+    <h1>Modify Criteria</h1>
+    <form id="criteriaForm">
+        <div id="criteriaList">
+            {% for criterion in criteria['criteria'] %}
+                <div class="criterion">
+                    <div class="input-group">
+                        <label>Criterion Name:</label>
+                        <input type="text" class="criterion-name" value="{{ criterion.name }}">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Weight:</label>
+                        <input type="number" class="criterion-weight" value="{{ criterion.weight }}" step="0.01" min="0" max="1">
+                    </div>
+
+                    <button type="button" class="remove-criterion">Remove Criterion</button>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button" id="addCriterion">+ Add Criterion</button>
+        <button type="submit" class="save-btn">Save Criteria</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let criteriaList = document.getElementById("criteriaList");
+
+        // Add Criterion
+        document.getElementById("addCriterion").addEventListener("click", function () {
+            let div = document.createElement("div");
+            div.classList.add("criterion");
+            div.innerHTML = `
+                <div class="input-group">
+                    <label>Criterion Name:</label>
+                    <input type="text" class="criterion-name" value="New Criterion">
+                </div>
+
+                <div class="input-group">
+                    <label>Weight:</label>
+                    <input type="number" class="criterion-weight" step="0.01" min="0" max="1" value="0">
+                </div>
+
+                <button type="button" class="remove-criterion">Remove Criterion</button>
+            `;
+            criteriaList.appendChild(div);
+        });
+
+        // Remove Criterion
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("remove-criterion")) {
+                event.target.closest(".criterion").remove();
+            }
+        });
+
+        // Save Criteria
+        document.getElementById("criteriaForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let updatedCriteria = { "criteria": [] };
+
+            document.querySelectorAll(".criterion").forEach(criterion => {
+                let name = criterion.querySelector(".criterion-name").value.trim();
+                let weight = parseFloat(criterion.querySelector(".criterion-weight").value);
+
+                if (name) {
+                    updatedCriteria.criteria.push({ "name": name, "weight": weight });
+                }
+            });
+
+            fetch("/criteria", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedCriteria)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else {
+                    alert("Criteria saved successfully!");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    });
+</script>
