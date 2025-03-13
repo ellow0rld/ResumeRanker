@@ -1,58 +1,64 @@
-/* style.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-    margin: 25px 25px;
-    padding: 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.main-heading {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #0ef61a;
-}
-
-#searchInput {
-    margin-bottom: 10px;
-    padding: 8px;
-    width: 20%;
-    box-sizing: border-box;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-td,th {
+/* Criteria Styling */
+.criterion {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    background: #f9f9f9;
 }
 
-th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #0ef61a;
+.criterion label {
+    font-weight: bold; /* Make criteria bold */
+    font-size: 18px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.criterion-weight {
+    font-size: 16px;
+}
+
+/* Subcriteria Styling */
+ul {
+    padding-left: 20px; /* Indent subcriteria */
+}
+
+.subcriterion-name {
+    font-size: 14px; /* Reduce font size */
+}
+
+.subcriterion-weight {
+    font-size: 14px; /* Reduce font size */
+}
+
+/* Button Styling */
+button {
+    background: #3498db;
     color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
 }
 
-tr:nth-child(even) {
-    background-color: #dbe0de;
+button:hover {
+    background: #2980b9;
 }
 
-#noMatch {
-    color: red;
-    margin-top: 2.5rem;
-    margin-left: 17rem;
-    font-size: 20px;
+/* Add and Remove Buttons */
+.add-subcriterion,
+.remove-subcriterion,
+.remove-criterion {
+    background: #e74c3c;
+    font-size: 12px;
+}
+
+.add-subcriterion {
+    background: #2ecc71;
+}
+
+.remove-criterion {
+    background: #c0392b;
 }
