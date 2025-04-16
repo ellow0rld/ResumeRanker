@@ -12,16 +12,6 @@
     <div class="container">
         <h1>Ranking Results</h1>
 
-        <!-- Display extracted job requirements -->
-        <div class="job-requirements">
-            <h2>Extracted Job Requirements</h2>
-            <ul>
-                {% for requirement in ranks[0].explanation["Matched Requirements"] + ranks[0].explanation["Missed Requirements"] %}
-                    <li>{{ requirement }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-
         <table>
             <thead>
                 <tr>
@@ -35,27 +25,15 @@
                 {% for rank in ranks %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td>{{ rank.filename }}</td>
+                    <td>
+                        <a href="{{ rank.highlighted_link }}" target="_blank">
+                            {{ rank.filename }}
+                        </a>
+                    </td>
                     <td>{{ "%.2f" % rank.score }}</td>
                     <td>
-                        <strong>Matched Requirements:</strong>
-                        <ul>
-                            {% for req in rank.explanation["Matched Requirements"] %}
-                                <li>{{ req }}</li>
-                            {% endfor %}
-                        </ul>
-
-                        <strong>Missed Requirements:</strong>
-                        <ul>
-                            {% for req in rank.explanation["Missed Requirements"] %}
-                                <li>{{ req }}</li>
-                            {% endfor %}
-                        </ul>
-
-                        <strong>Job Match Score:</strong> {{ rank.explanation["Job Match Score"] }}% <br>
-                        <strong>Activity Count:</strong> {{ rank.explanation["Activity Count"] }} <br>
-                        <strong>Final Weighted Score:</strong> {{ rank.explanation["Final Weighted Score"] }} <br>
-                        <strong>Ranking Justification:</strong> {{ rank.explanation["Ranking Justification"] }}
+                        <strong>Context based Score:</strong> {{ rank.explanation["Context based Score"] }} <br>
+                        <strong>Keyword based Score:</strong> {{ rank.explanation["Keyword based Score"] }} <br>
                     </td>
                 </tr>
                 {% endfor %}
